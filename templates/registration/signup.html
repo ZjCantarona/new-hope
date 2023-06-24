@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block internal_style %}
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+        .password-requirements {
+            text-align: center;
+        }
+    </style>
+{% endblock internal_style %}
+
+{% block main_content %}
+    <form class="splash-container" method="post" action="{% url 'signup_user' %}">
+        {% csrf_token %}
+        <div class="card">
+            <div class="card-header">
+                <h3 class="mb-1 text-warning">Account Creation</h3>
+                <p>Please enter your user information to get registered</p>
+            </div>
+            <div class="card-body">
+                {% if form.errors %}
+                    <div class="alert alert-warning">
+                        {% for field in form %}
+                            {% if field.errors %}
+                                {{ field.errors }}
+                            {% elif field.name == 'password1' and field.value %}
+                                <p class="text-danger password-requirements">The password must contain at least one number and includes both lower and uppercase letters and special characters.</p>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="text" id="{{ form.username.id_for_label }}" name="{{ form.username.name }}" required="" placeholder="Username" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" type="email" id="{{ form.email.id_for_label }}" name="{{ form.email.name }}" required="" placeholder="E-mail (someone@email.com)" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}" class="password-requirements">Make sure the password is at least 8 characters long including a number, special character and a lowercase letter.</label>
+                    <input class="form-control form-control-lg" id="{{ form.password1.id_for_label }}" name="{{ form.password1.name }}" type="password" required placeholder="Password">
+                </div>
+                <div class="form-group">
+                    <input class="form-control form-control-lg" id="{{ form.password2.id_for_label }}" name="{{ form.password2.name }}" type="password" required="" placeholder="Confirm">
+                </div>
+                <div class="form-group pt-2">
+                    <button class="btn btn-block btn-warning text-light" type="submit">Register My Account</button>
+                </div>
+            </div>
+            <div class="card-footer bg-white">
+                <p>Already a member? <a href="{% url 'login_user' %}" class="text-secondary">Login Here.</a></p>
+            </div>
+        </div>
+    </form>
+{% endblock main_content %}

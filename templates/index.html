@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block internal_style %}
+    <style>
+        div.card {
+            border: none;
+        }
+
+        .card.transparent {
+            background-color: transparent;
+            box-shadow: none;
+        }
+
+        .card.p-5 {
+            border: none;
+        }
+    </style>
+{% endblock internal_style %}
+
+{% block content %}
+    <div class="dashboard-wrapper">
+        <div class="container-fluid dashboard-content">
+            <div class="row">
+                <div class="col-xl-12 col-lg-8 col-md-11 col-sm-12 col-12 mx-auto">
+                    <div class="card p-5 shadow transparent">
+                        <div class="card p-4 shadow transparent">
+                            <h3 class="h2" style="text-align: center; font-size: 40px; color: white; font-family: Arial; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);"><b>Select a Category to Manage</b></h3>
+                        </div>
+                        <div class="row mt-5">
+                            <div class="col-md-4">
+                                <div class="card shadow">
+                                    <div class="card-header">
+                                        <p class="h5">Ministries</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Click to create a new ministry, edit or modify an existing ministry, view or list saved ministries in the system and delete existing ministries.
+                                            Members of a particular ministry can also be viewed and modified.
+                                        </p>
+                                        <a href="{% url 'list_ministries' %}" class="btn btn-success text-light shadow btn-sm">View List</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card shadow">
+                                    <div class="card-header">
+                                        <p class="h5">Speakers</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Click to add new speakers, edit or modify an existing speaker, view or list saved speakers in the system and delete existing speakers.
+                                            Members belonging to a particular speaker can also be viewed and modified.
+                                        </p>
+                                        <a href="{% url 'list_speakers' %}" class="btn btn-success btn-sm shadow text-light">View List</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card shadow">
+                                    <div class="card-header">
+                                        <p class="h5">Members</p>
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="card-text">
+                                            Click to add new members, edit or modify an existing member, view or list saved members in the system and delete existing member.
+                                            Speakers and Ministries of a particular member can also be accessed and modified from here.
+                                        </p>
+                                        <a href="{% url 'table_members' %}" class="btn btn-success text-light btn-sm shadow">View List</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

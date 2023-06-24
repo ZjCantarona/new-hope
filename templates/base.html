@@ -1,0 +1,213 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Church System</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}">
+    <link href="{% static 'assets/vendor/fonts/circular-std/style.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'assets/libs/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/vendor/fonts/fontawesome/css/fontawesome-all.css' %}">
+    <link href="{% static 'assets/personal/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css' %}">
+    <style>
+        .nav-link {
+            color: white !important;
+        }
+        /*.navbar.navbar-expand-lg.bg-dark{
+            border-bottom: 2px solid #f3b600;
+        }*/
+        body {
+        background-image: url("{% static 'assets/images/R.jpg' %}");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+    </style>
+    {% block internal_style %}{% endblock internal_style %}
+</head>
+
+<body>
+    {% block main_content %} 
+    <!-- ============================================================== -->
+    <!-- main wrapper -->
+    <!-- ============================================================== -->
+        <div class="dashboard-main-wrapper">
+             <!-- ============================================================== -->
+            <!-- navbar -->
+            <!-- ============================================================== -->
+             <div class="dashboard-header">
+                <nav class="navbar navbar-expand-lg bg-light fixed-top">
+         <a class="navbar-brand" href="{% url 'home' %}" style="color: olivedrab; font-family:Georgia, serif; ">New Hope Church</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto navbar-right-top">
+                            
+                            
+                            <li class="nav-item dropdown connection">
+                                <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fas fa-fw fa-th text-dark"></i> </a>
+                                <ul class="dropdown-menu dropdown-menu-right connection-dropdown">
+                                    <li class="connection-list">
+                                        <div class="row">
+                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                                <a href="{% url 'list_ministries' %}" class="connection-item"><i class="fa fa-2x fa-building"></i> <span>Ministries</span></a>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                                <a href="{% url 'list_speakers' %}" class="connection-item"><i class="fas fa-2x fa-people-carry"></i> <span>Speakers</span></a>
+                                            </div>
+                                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 ">
+                                                <a href="{% url 'table_members' %}" class="connection-item"><i class="fa fa-2x fa-users"></i> <span>Members</span></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item dropdown nav-user">
+                                <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-cog fa-1.5x text-dark"></i>
+                                </a>                                                             
+                                <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
+                                    <div class="nav-user-info bg-success">
+                                        <span class="status"></span><span class="ml-2">Welcome</span>
+                                        <h5 class="mb-0 text-dark nav-user-name">{{ user | capfirst }}</h5>
+                                        
+                                    </div>
+                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal"><i class="fas fa-power-off mr-2"></i>Logout</a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end navbar -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- left sidebar -->
+            <!-- ============================================================== -->
+            <div class="nav-left-sidebar sidebar-primary bg-dark">
+                <div class="menu-list">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a class="d-xl-none d-lg-none" href="#">New Hope Church</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarNav">
+                            <ul class="navbar-nav flex-column">
+                                <li class="nav-divider text-light" style="font-size: 18px;">
+                                    Management
+                                </li>
+                                <li class="nav-item"><a href="{% url 'home' %}" class="nav-link {{ home_active }}" ><i class="fa fa-home" style="font-size: 18px;"></i>Home</a></li>
+                                <li class="nav-item ">
+                                    <a class="nav-link {{ ministries_active_add }}{{ ministries_active_list }}" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-building"></i>Ministries</a>
+                                    <div id="submenu-1" class="collapse submenu" style="color: black;">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ ministries_active_add }}" href="{% url 'add_ministry' %}"><i class="fa fa-plus"></i>Add</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link {{ ministries_active_list }}" href="{% url 'list_ministries' %}"><i class="fa fa-list"></i>List</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link {{ speakers_active_add }}{{ speakers_active_list }}" data-toggle="collapse" aria-expanded="false" data-target="#speaker-submenu" aria-controls="speaker-submenu"><i class="fas fa-people-carry"></i>Speaker</a>
+                                    <div id="speaker-submenu" class="collapse submenu">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a href="{% url 'add_speaker' %}" class="nav-link {{ speakers_active_add }}"><i class="fa fa-plus"></i> Add</a>
+                                                <a href="{% url 'list_speakers' %}" class="nav-link {{ speakers_active_list }}"><i class="fa fa-list"></i> List</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link {{ members_active_list }}{{ members_active_add }}" data-toggle="collapse" aria-expanded="false" data-target="#members-submenu" aria-controls="members-submenu"><i class="fas fa-users"></i>Members</a>
+                                    <div id="members-submenu" class="collapse submenu">
+                                        <ul class="nav flex-column">
+                                            <li class="nav-item">
+                                                <a href="{% url 'add_member' %}" class="nav-link {{ members_active_add }}"><i class="fa fa-plus"></i> Add</a>
+                                                <a href="{% url 'table_members' %}" class="nav-link {{ members_active_list }}"><i class="fa fa-list"></i> List</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                        </div>
+
+                    </nav>
+                </div>
+            </div>
+            <!-- ============================================================== -->
+            <!-- end left sidebar -->
+            <!-- ============================================================== -->
+            <!-- ============================================================== -->
+            <!-- wrapper  -->
+            <!-- ============================================================== -->
+
+            {% block content %}
+
+
+            {% endblock content %}
+                <!-- ============================================================== -->
+                <!-- footer -->
+                <!-- ============================================================== -->
+            {% block footer %}
+                <div class="footer">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <p class="float-right">Copyright © 2023 <b class="text-success">New Hope Church Management System</b>. All Rights Reserved.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endblock footer %}
+        </div>
+
+                <!-- ============================================================== -->
+                <!-- end footer -->
+                <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- end main wrapper -->
+        </div>
+        <!-- ============================================================== -->
+        <!-- Optional JavaScript -->
+        <script src="{% static 'assets/vendor/jquery/jquery-3.3.1.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/bootstrap/js/bootstrap.bundle.js' %}"></script>
+        <script src="{% static 'assets/vendor/slimscroll/jquery.slimscroll.js' %}"></script>
+        <script src="{% static 'assets/libs/js/main-js.js' %}"></script>
+        {% block script %}
+
+        {% endblock script %}
+    {% endblock main_content %}
+
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="logoutModallabel">Ready to Leave?</h5>
+              <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+              <button class="btn btn-danger text-light" type="button" data-dismiss="modal">Cancel</button>
+              <a class="btn btn-success" href="{% url '_logout' %}">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+</body>
+
+</html>

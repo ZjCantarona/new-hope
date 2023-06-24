@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="dashboard-wrapper">
+    <div class="container-fluid dashboard-content">
+        <div class="container-fluid">
+            <div class="row justify-content-center"> <!-- Add justify-content-center class here -->
+                {% if messages %}
+                {% for message in messages %}
+                <div class="col-lg-12 mr-auto ml-auto alert bg-warning alert-dismissable pb-0 pt-0" role="alert">
+                    <button type="button" class="close p-2" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true" class="text-light font-weight-bold"><b>&times;</b></span>
+                    </button>
+                    <div class="row">
+                        <div class="mr-auto ml-auto">
+                            <p class="h5 mr-auto ml-auto p-2 text-light">
+                                <b>
+                                    {% if message.tags ==  "alert-danger" %}
+                                    <i class="fa fa-exclamation-triangle mr-3 text-danger"></i> {{ message }}
+                                    {% else %}
+                                    <i class="fa fa-check"></i> {{ message }}
+                                    {% endif %}
+                                </b>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="card p-3 w-100">
+                    <p>
+                        <a href="{% url 'list_speakers' %}">Table View<i class="ml-2 fa fa-table"></i></a>
+                    </p>
+                </div>
+                <div class="col-xl-9 col-lg-8 col-md-8 col-sm-12 col-12">
+                    <div class="row">
+                        {% for speaker in speakers %}
+                        {% if forloop.counter0|divisibleby:4 %}
+                        </div><div class="row">
+                        {% endif %}
+                        <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12 mb-4">
+                            <div class="product-thumbnail">
+                                <div class="product-img-head">
+                                    {% if speaker.picture %}
+                                    <div class="product-img" style="height: 300px; display: flex; justify-content: center; align-items: center;">
+                                        <img src="{{ speaker.picture.url }}" alt="" class="img-fluid" style="max-height: 100%; max-width: 100%;">
+                                    </div>
+                                    {% else %}
+                                    <div class="product-img" style="height: 300px; display: flex; justify-content: center; align-items: center;">
+                                        <span>No picture available</span>
+                                    </div>
+                                    {% endif %}
+                                    <div class="ribbons bg-warning"></div>
+                                    <div class="ribbons-text p-0 text-warning"></div>
+                                </div>
+                                <div class="product-content">
+                                    <div class="product-content-head">
+                                        <h3 class="product-title text-center">{{ speaker.name }}</h3>
+                                        <br>
+                                        <h3 class="product-title text-center">Contact: {{ speaker.telephone }}</h3>
+                                    </div>
+                                    <div class="product-btn">
+                                        <a href="{% url 'detail_speaker' pk=speaker.pk %}" class="btn btn-outline-light">Details</a>
+                                        <a href="{% url 'update_speaker' pk=speaker.pk %}" class="btn btn-outline-light">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a href="{% url 'delete_speaker' pk=speaker.pk %}" data-toggle="modal" data-target="#deleteModal{{ speaker.pk }}" class="btn btn-danger">Delete Speaker</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="deleteModal{{ speaker.pk }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModallabel{{ speaker.pk }}">Removing Speaker from the system</h5>
+                                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">Are you sure you want to delete this speaker?</div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-warning text-light" type="button" data-dismiss="modal">Cancel</button>
+                                        <a class="btn btn-danger" href="{% url 'delete_speaker' pk=speaker.pk %}">Yes</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
