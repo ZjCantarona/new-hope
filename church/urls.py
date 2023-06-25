@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     
     path('admin/', admin.site.urls),
+    path('', include ('main.urls')),
     path('members/', include('Member.urls')),
     path('accounts/', include('users.urls')),
     path('', index, name="home"),
