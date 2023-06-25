@@ -22,6 +22,9 @@ from django.conf.urls.static import static
 from .views import index
 
 urlpatterns = [
+    url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
+    url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
+    
     path('admin/', admin.site.urls),
     path('members/', include('Member.urls')),
     path('accounts/', include('users.urls')),
