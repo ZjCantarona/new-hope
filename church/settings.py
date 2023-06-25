@@ -135,13 +135,18 @@ MESSAGE_TAGS = {
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static_local"),
-]
-STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
-
 MEDIA_URL = '/media/'
+
+if DEBUG:
+
+  STATICFILES_DIRS = [os.path.join(BASE_DIR, "static_local"),]
+
+else:
+
+  STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "static_root")
+
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+
 #STATIC_ROOT = os.path.join(BASE_DIR, "Church_Management_System_Project_Django", "static_cdn", "static_root")
 #MEDIA_ROOT = os.path.join(BASE_DIR, "Church_Management_System_Project_Django", "static_cdn", "media_root")
 
